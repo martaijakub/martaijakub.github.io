@@ -177,7 +177,7 @@
     <section id="rsvp" class="rsvp">
         <div class="container">
             <h2 class="section-title fade-in" data-translate="rsvp">RSVP</h2>
-            <p class="section-subtitle fade-in" data-translate="rsvp_deadline">Please respond by <b>April 1st, 2026</b></p>
+            <p class="section-subtitle fade-in" data-translate="rsvp_deadline">Please respond by <b>May 30th, 2026</b></p>
             
             <form class="rsvp-form fade-in" id="rsvpForm">
                 <div class="form-group">
@@ -208,15 +208,15 @@
                 </div>
                 
 				<div class="form-group">
-                    <label class="form-label" data-translate="will_attend_1">Will you be with your +1 *</label>
+                    <label class="form-label" data-translate="will_attend_1">Will you be with your +1 (if on the weeding invitation is "with guest")</label>
                     <div class="radio-group">
                         <div class="radio-item">
                             <input type="radio" id="attendingYes" name="attending_1" value="TAK" required>
-                            <label for="attendingYes_1" data-translate="yes_attending_1">YES, bringing my partner in crime</label>
+                            <label for="attendingYes_1" data-translate="yes_attending_1">YES</label>
                         </div>
                         <div class="radio-item">
                             <input type="radio" id="attendingNo" name="attending_1" value="NIE" required>
-                            <label for="attendingNo_1" data-translate="no_attending_1">No, flying solo tonight!</label>
+                            <label for="attendingNo_1" data-translate="no_attending_1">No</label>
                         </div>
                     </div>
                     <div class="error" id="attendingError" data-translate="error_attendance_1">Please select your answer on +1</div>
@@ -433,15 +433,15 @@
 			    modalerror: "Invalid code. Please try again.",
                 // RSVP Section
                 rsvp: 'RSVP',
-                rsvp_deadline: 'Please respond by April 1st, 2026',
+                rsvp_deadline: 'Please respond by May 30th, 2026',
                 guest_names: 'Guest Name(s) *',
                 email_address: 'Email Address *',
                 will_attend: 'Will you be attending? *',
-				will_attend_1: 'Will you be with your +1 *',
+				will_attend_1: 'Will you be with your +1 (if on the weeding invitation is "with guest")',
                 yes_attending: "Yes, I'll be there! 💕",
                 no_attending: "Sorry, can't make it 😢",
-				yes_attending_1: "YES, bringing my partner in crime",
-				no_attending_1: "No, flying solo tonight!",
+				yes_attending_1: "YES",
+				no_attending_1: "No",
                 dietary_restrictions: 'Dietary Restrictions',
                 special_message: 'Special Message (Optional)',
                 send_rsvp: 'Send RSVP 💌',
@@ -498,15 +498,15 @@
                 
                 // RSVP Section
                 rsvp: 'Potwierdzenie Obecności',
-                rsvp_deadline: 'Prosimy o odpowiedź do <b>1 kwietnia 2026</b>',
+                rsvp_deadline: 'Prosimy o odpowiedź do <b>30 maja 2026</b>',
                 guest_names: 'Imię i Nazwisko *',
                 email_address: 'Adres Email *',
-                will_attend: 'Czy będziesz obecny/obecna? *',
-				will_attend_1: 'Czy będziesz z osobą towarzyszącą*',
+                will_attend: 'Czy będziesz obecny/obecna?',
+				will_attend_1: 'Czy będziesz z osobą towarzyszącą (na zaproszeniu "os. towarzysząca")',
                 yes_attending: 'Tak, będę! 💕',
                 no_attending: 'Niestety, nie mogę przyjść 😢',
-				yes_attending_1: "TAK, przyjdziemy we dwoje",
-				no_attending_1: "Nie, tym razem solo!",
+				yes_attending_1: "TAK",
+				no_attending_1: "Nie",
                 dietary_restrictions: 'Ograniczenia Dietetyczne',
                 special_message: 'Specjalna Wiadomość (Opcjonalnie)',
                 send_rsvp: 'Wyślij Potwierdzenie 💌',
@@ -748,7 +748,7 @@
                 
                 // Send email using EmailJS
                 // Note: Replace the service and template IDs with your actual IDs
-                emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, formData)
+                emailjs.send('080826', 'template_nzzzhuy', formData)
                     .then(function(response) {
                         console.log('SUCCESS!', response.status, response.text);
                         document.getElementById('successMessage').style.display = 'block';
@@ -1327,8 +1327,7 @@ document.addEventListener('DOMContentLoaded', function() {
 const guests = [
   { name: "Jakub Buksiński", table: "1", seat: "A", gate: "A2", pnr: "JAKUB" },
   { name: "Marta Gudyka", table: "1", seat: "B", gate: "A1", pnr: "MARTA" },
-  { name: "Agnieszka", table: "2", seat: "B", gate: "B1", pnr: "MJ26" },
-  { name: "test3", table: "2", seat: "B", gate: "B2", pnr: "TEST3" }
+  { name: "WESELE MARTY I JAKUBA", pnr: "MJ26" }
 ];
 if (loggedGuest) {
   document.getElementById('welcomeName').innerText = loggedGuest.name;
