@@ -49,10 +49,9 @@
             <ul>
                 <li><a href="#hero" data-translate="nav_home">Home</a></li>
                 <li><a href="#details" data-translate="nav_details">Details</a></li>
-                <li><a href="#story" data-translate="nav_story">Our Story</a></li>
-				<li><a href="#mapa" data-translate="navmap">Plan Stołów</a></li>
+				<!--<li><a href="#mapa" data-translate="navmap">Plan Stołów</a></li>-->
                 <li><a href="#rsvp" data-translate="nav_rsvp">RSVP</a></li>
-				<li><a href="#bingo" data-translate="nav_bingo">Wedding Bingo</a></li>
+				<!--<li><a href="#bingo" data-translate="nav_bingo">Wedding Bingo</a></li>-->
             </ul>
             <div class="language-toggle">
                 <button id="langEn" class="lang-btn active" onclick="switchLanguage('en')">EN</button>
@@ -91,9 +90,9 @@
                     <div class="detail-icon">⛪</div>
                     <h3 class="detail-title" data-translate="ceremony">Ceremony</h3>
                     <div class="detail-info">
-                        <strong data-translate="ceremony_venue">Oliwa Cathedral</strong><br>
-                        <span data-translate="ceremony_address">Oliwa<br>Gdansk, Poland</span><br>
-                        <strong data-translate="ceremony_time">When? Time yet to be announced</strong>
+                        <strong data-translate="ceremony_venue">Church (yet to be annouced)</strong><br>
+                        <span data-translate="ceremony_address">Gdansk, Poland</span><br>
+                        <strong data-translate="ceremony_time">2:00 PM</strong>
                     </div>
                 </div>
                 
@@ -118,24 +117,7 @@
             </div>
         </div>
     </section>
-
-    <!-- Our Story Section -->
-    <section id="story" class="story">
-        <div class="container">
-            <h2 class="section-title fade-in" data-translate="our_story">Our Love Story</h2>
-            
-            <div class="story-content fade-in">
-                <p class="story-text" data-translate="story_text">
-                    Hi! We met on the very casual day like it is many in daily life. Something went different that day as we stand by each other as best friends, soulmates and now husband and wife.
-                </p>
-                
-                <div class="quote" data-translate="love_quote">
-                    "Love is not just looking at each other, it's looking in the same direction together."
-                </div>
-            </div>
-        </div>
-    </section>
-	<section id="bingo" class="bingo-section">
+	<!--<section id="bingo" class="bingo-section">
 	  <div class="container">
 		<h2 data-translate="bingo_title">Wedding Bingo Challenge</h2>
 		<p data-translate="bingo_subtitle">Capture moments, mark your card, and win prizes!</p>
@@ -171,7 +153,6 @@
   <h3 data-translate="bingo_gallery_title">Photo Gallery</h3>
   <p class="bingo-gallery-subtitle" data-translate="bingo_gallery_subtitle">Add photos and upload them to share with everyone!</p>
   
-  <!-- NOWE PRZYCISKI -->
   <div id="uploadSection" class="upload-controls">
     <input type="file" id="localPhotoInput" accept="image/*" multiple style="display:none;">
     <label for="localPhotoInput" class="btn-add-photo" data-translate="bingo_add_photo">📸 Dodaj Zdjęcie</label>
@@ -179,20 +160,19 @@
     <button id="clearLocalPhotos" class="btn-clear" data-translate="bingo_clear_all">🗑️ Wyczyść Wszystkie</button>
   </div>
   
-  <!-- GALERIA ROBOCZA (localStorage) -->
+
   <div class="local-gallery-section">
     <h4 data-translate="bingo_your_photos">Twoje Zdjęcia (do wysłania):</h4>
     <div id="localPhotoGallery" class="local-photo-gallery"></div>
   </div>
   
-  <!-- GALERIA PUBLICZNA (Cloudinary) -->
   <div class="cloud-gallery-section">
     <h4 data-translate="bingo_shared_photos">Udostępnione Zdjęcia:</h4>
     <div id="cloudPhotoGallery" class="photo-gallery-grid"></div>
   </div>
 </div>
 	  </div>
-	</section>
+	</section>-->
     <!-- RSVP Section -->
     <section id="rsvp" class="rsvp">
         <div class="container">
@@ -261,7 +241,7 @@
         </div>
     </section>
 </div>
-<!-- Sekcja planu stołów -->
+<!-- Sekcja planu stołów
 <section id="mapa" class="seating-plan-section">
 <div class="container">
     <h2>Znajdź swoje miejsce</h2>
@@ -269,14 +249,11 @@
   <span id="welcomeName"></span>! Oto Twoje miejsce.
 </p>
 
-    <!-- Mapa SVG -->
     <div class="svg-container">
       <svg width="900" height="650" viewBox="0 0 900 650">
-  <!-- PREZYDIUM (stół poziomy) -->
   <g id="prezydium">
     <rect x="180" y="50" width="540" height="60" stroke="black" fill="white" stroke-width="4" />
-    <!-- Siedzenia - 12 miejsc, z id: 1A, 2A, ... -->
-    <!-- Zaczynamy od x=210, przesuwamy o 45px -->
+
     <circle id="seat-1A" cx="210" cy="35" r="16" stroke="black" fill="white" />
     <circle id="seat-2A" cx="255" cy="35" r="16" stroke="black" fill="white" />
     <circle id="seat-3A" cx="300" cy="35" r="16" stroke="black" fill="white" />
@@ -292,10 +269,8 @@
   </g>
 
  <g id="table-bc">
-    <!-- Stół -->
     <rect x="180" y="150" width="60" height="280" stroke="black" fill="white" stroke-width="4"/>
     
-    <!-- Kolumna B: po lewej stronie stołu -->
     <circle id="seat-1B" cx="165"  cy="180" r="14" stroke="black" fill="white"/>
     <circle id="seat-2B" cx="165"  cy="210" r="14" stroke="black" fill="white"/>
     <circle id="seat-3B" cx="165"  cy="240" r="14" stroke="black" fill="white"/>
@@ -305,7 +280,6 @@
     <circle id="seat-7B" cx="165"  cy="370" r="14" stroke="black" fill="white"/>
     <circle id="seat-8B" cx="165"  cy="400" r="14" stroke="black" fill="white"/>
     
-    <!-- Kolumna C: po prawej stronie stołu -->
     <circle id="seat-1C" cx="255" cy="180" r="14" stroke="black" fill="white"/>
     <circle id="seat-2C" cx="255" cy="210" r="14" stroke="black" fill="white"/>
     <circle id="seat-3C" cx="255" cy="240" r="14" stroke="black" fill="white"/>
@@ -323,10 +297,9 @@
 
     <button id="showBPBtn" style="display:none;" onclick="openModal()">Pobierz Boarding Pass</button>
 	<select id="adminSelect" style="display:none;">
-  <!-- Goście będą dynamicznie dodani JS-em -->
 </select>
   </div>
-</section>
+</section>-->
 <!-- MODAL BOARDING PASS (DESIGN LUFTHANSA) -->
 <div id="bpModal" class="modal-overlay" onclick="closeModal(event)">
   <div class="bp-card">
@@ -444,20 +417,15 @@
                 ceremony: 'Ceremony',
                 reception: 'Wedding Party',
                 dress_code: 'Dress Code',
-                ceremony_venue: "Oliwa Cathedral",
-                ceremony_address: 'Oliwa<br>Gdansk, Poland',
-                ceremony_time: 'To be announced',
+                ceremony_venue: "Church (yet to be announced)",
+                ceremony_address: 'Gdansk, Poland',
+                ceremony_time: '2:00 PM',
                 reception_venue: 'Tabun',
                 reception_address: 'Konna 29<br>80-174 Otomin, Poland',
                 reception_time: '4:00 PM',
                 dress_code_formal: 'Formal Attire',
                 dress_code_description: 'We kindly request formal attire.<br>Ladies: cocktail dress or gown<br>Gentlemen: suit or tuxedo',
                 
-                // Story Section
-                our_story: 'Our Love Story',
-                story_text: "Hi! We met on the very casual day like it is many in daily life. Something went different that day as we stand by each other as best friends, soulmates and now husband and wife.",
-                love_quote: '"Love is not just looking at each other, it\'s looking in the same direction together."',
-            	
 				 // Modal z kodami
 				modaltitle: "Please enter your invitation code",
 			    modalplaceholder: "Invitation Code",
@@ -519,19 +487,14 @@
                 ceremony: 'Ceremonia',
                 reception: 'Przyjęcie',
                 dress_code: 'Dress Code',
-                ceremony_venue: 'Katedra Oliwska',
-                ceremony_address: 'Oliwa<br>Gdansk, Poland',
-                ceremony_time: 'Godzina zostanie podana niedługo',
+                ceremony_venue: 'oglosimy niedlugo jaki kosciol',
+                ceremony_address: 'Gdansk, Poland',
+                ceremony_time: '14:00',
                 reception_venue: 'Tabun',
                 reception_address: 'Konna 29<br>80-174 Otomin, Poland',
                 reception_time: '16:00',
                 dress_code_formal: 'Strój Wizytowy',
                 dress_code_description: 'Uprzejmie prosimy o strój wizytowy.<br>Panie: suknia koktajlowa lub wieczorowa<br>Panowie: garnitur lub smoking',
-                
-                // Story Section
-                our_story: 'Nasza Historia',
-                story_text: 'Poznaliśmy się w bardzo zwyczajny dzień, jakich wiele w codziennym życiu. Tamtego dnia coś poszło inaczej, ponieważ zostalismy najlepszymi przyjaciółmi, bratnimi duszami, a teraz mężem i żoną.',
-                love_quote: '"Miłość to nie tylko patrzenie na siebie, ale patrzenie w tym samym kierunku razem."',
                 
                 // RSVP Section
                 rsvp: 'Potwierdzenie Obecności',
