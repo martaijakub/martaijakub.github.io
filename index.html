@@ -1262,53 +1262,61 @@ let loggedGuest = null;
 
 document.getElementById('validateCodeBtn').onclick = function() {
   const code = document.getElementById('inviteCodeInput').value.trim().toUpperCase();
-  const loggedGuest = guests.find(g => g.pnr === code);
+  
+  // 1. Sprawdzamy kody ogólne lub szukamy gościa w bazie
+  const globalCodes = ['MJ26', 'MJ2026'];
+  if (globalCodes.includes(code)) {
+    loggedGuest = { name: "Gość", pnr: code, table: null, seat: null, gate: "A1" };
+  } else {
+    loggedGuest = guests.find(g => g.pnr === code);
+  }
 
   if (loggedGuest) {
-    // Fade out modal
     const modal = document.getElementById('codeModal');
     modal.classList.add('fade-out');
     setTimeout(() => {
       modal.style.display = 'none';
       document.body.classList.remove('validate-code');
       document.querySelector('.main-content').classList.add('fade-in');
-      createPetals();
+      if (typeof createPetals === 'function') createPetals();
 
-      /** Begin ADMIN MODE **/
+      /** ADMIN MODE dla Jakuba **/
       if (code === "JAKUB") {
-        // Pokaz select z gośćmi
         const sel = document.getElementById('adminSelect');
-        sel.innerHTML = ''; // wyczyść
+        sel.innerHTML = '';
         guests.forEach(g => {
           const opt = document.createElement('option');
           opt.value = g.pnr;
           opt.text = `${g.name} (${g.pnr})`;
           sel.appendChild(opt);
         });
-        sel.style.display = 'block'; // pokazujemy select
+        sel.style.display = 'block';
 
-        // Po wybraniu gościa z listy
         sel.onchange = function() {
           const guest = guests.find(g => g.pnr === sel.value);
           showGuestDetails(guest);
           currentGuest = guest;
         };
         
-        // Wyświetl domyślnie Jakuba
         showGuestDetails(loggedGuest);
         currentGuest = loggedGuest;
       } else {
-        /** NORMALNY TRYB **/
+        /** TRYB DLA GOŚCIA **/
         showGuestDetails(loggedGuest);
         currentGuest = loggedGuest;
-        document.getElementById('adminSelect').style.display = 'none';
+        const adminSel = document.getElementById('adminSelect');
+        if (adminSel) adminSel.style.display = 'none';
       }
     }, 800);
   } else {
+    // 2. Naprawiony błąd ReferenceError
     document.getElementById('codeError').style.display = 'block';
-    updateCodeModal(currentLang);
+    if (typeof updateCodeModalTexts === 'function') {
+        updateCodeModalTexts(currentLanguage);
+    }
   }
 };
+
 
 
 		// =================== INICJALIZACJA CLOUDINARY ===================
