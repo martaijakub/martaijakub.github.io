@@ -1358,12 +1358,15 @@ function resetMap() {
 }
 // Podświetl miejsce po autoryzacji kodu
 function showGuestDetails(guest) {
-  if (!guest) { /* obsługa błędu */ return; }
-  currentGuest = guest;
-  document.getElementById('welcomeName').innerText = guest.name;
-  document.getElementById('welcomeGuest').style.display = 'block';
-  document.getElementById('showBPBtn').style.display = 'block';
-  highlightSeat(guest.table, guest.seat);
+    if (!guest) return;
+    currentGuest = guest;
+    document.getElementById('welcomeNamespan').innerText = guest.name;
+    document.getElementById('welcomeGuest').style.display = 'block';
+    document.getElementById('showBPBtn').style.display = 'block';
+
+    if (guest.table && guest.seat) {
+        highlightSeat(guest.table, guest.seat);
+    }
 }
 function onShowBoardingPass() {
   if (!loggedGuest) return;
