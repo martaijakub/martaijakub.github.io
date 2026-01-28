@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marta & Jakub - 08.08.2026</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-primary: #d4a5a5;
+            --color-dark: #2c2c2c;
+            --color-light: #f9f7f4;
+            --color-accent: #8b9d83;
+            --color-text: #444;
+            --font-serif: 'Georgia', 'Garamond', serif;
+            --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            color: var(--color-text);
+            background-color: var(--color-light);
+            line-height: 1.6;
+        }
+
+        /* Language Toggle */
+        .language-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+            background: white;
+            padding: 10px 15px;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .lang-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-text);
+            padding: 5px 10px;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn.active {
+            background-color: var(--color-primary);
+            color: white;
+        }
+
+        .lang-btn:hover {
+            background-color: var(--color-accent);
+            color: white;
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            background: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            padding: 0 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--color-text);
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--color-primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #f9f7f4 0%, #f5f1ed 100%);
+            text-align: center;
+            padding: 60px 20px;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--color-primary), transparent);
+        }
+
+        .hero h1 {
+            font-family: var(--font-serif);
+            font-size: 72px;
+            font-weight: 400;
+            color: var(--color-dark);
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+
+        .hero .names {
+            font-family: var(--font-serif);
+            font-size: 48px;
+            color: var(--color-primary);
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+        }
+
+        .heart {
+            color: var(--color-primary);
+            font-size: 28px;
+            display: inline-block;
+            margin: 0 15px;
+            animation: beat 1.5s infinite;
+        }
+
+        @keyframes beat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .hero .date-location {
+            font-size: 18px;
+            color: var(--color-text);
+            margin: 20px 0;
+            letter-spacing: 1px;
+        }
+
+        .hero .location-detail {
+            font-size: 16px;
+            color: #888;
+            margin-top: 10px;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        /* Sections */
+        section {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section h2 {
+            font-family: var(--font-serif);
+            font-size: 48px;
+            font-weight: 400;
+            text-align: center;
+            margin-bottom: 60px;
+            color: var(--color-dark);
+            letter-spacing: 1px;
+        }
+
+        /* About/Story Section */
+        .story-text {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--color-text);
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            font-style: italic;
+            color: #666;
+        }
+
+        /* Timeline/Schedule */
+        .schedule {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .event-card {
+            background: white;
+            padding: 40px 30px;
+            border-left: 4px solid var(--color-primary);
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .event-card h3 {
+            font-family: var(--font-serif);
+            font-size: 24px;
+            color: var(--color-dark);
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+
+        .event-time {
+            color: var(--color-primary);
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .event-location {
+            color: var(--color-accent);
+            font-weight: 500;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .event-address {
+            color: #888;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* RSVP Section */
+        .rsvp-section {
+            background: white;
+            padding: 60px;
+            border-radius: 4px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .rsvp-section h2 {
+            margin-bottom: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 30px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: var(--color-dark);
+            font-size: 14px;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: var(--font-sans);
+            font-size: 16px;
+            color: var(--color-text);
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(212, 165, 165, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 30px;
+            margin-top: 10px;
+        }
+
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0;
+        }
+
+        .radio-group input[type="radio"] {
+            width: auto;
+            margin-right: 10px;
+            margin-bottom: 0;
+        }
+
+        .submit-btn {
+            background-color: var(--color-primary);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background-color: #c29595;
+        }
+
+        .submit-btn:active {
+            background-color: #b08585;
+        }
+
+        /* Accommodations Section */
+        .accommodations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .hotel-card {
+            background: white;
+            padding: 30px;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .hotel-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .hotel-card h3 {
+            font-family: var(--font-serif);
+            font-size: 20px;
+            color: var(--color-dark);
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+
+        .hotel-card p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+
+        .hotel-link {
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .hotel-link:hover {
+            color: var(--color-accent);
+        }
+
+        /* Things to Do Section */
+        .activities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .activity-card {
+            background: white;
+            padding: 30px;
+            border-radius: 4px;
+            border-top: 3px solid var(--color-accent);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .activity-card h3 {
+            font-family: var(--font-serif);
+            font-size: 20px;
+            color: var(--color-dark);
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+
+        .activity-card p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--color-dark);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 14px;
+        }
+
+        footer .heart {
+            color: var(--color-primary);
+        }
+
+        /* Hidden content for language switching */
+        .hidden {
+            display: none;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 48px;
+            }
+
+            .hero .names {
+                font-size: 32px;
+            }
+
+            nav ul {
+                gap: 15px;
+            }
+
+            nav a {
+                font-size: 12px;
+            }
+
+            section {
+                padding: 60px 20px;
+            }
+
+            section h2 {
+                font-size: 32px;
+            }
+
+            .rsvp-section {
+                padding: 40px 20px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .language-toggle {
+                top: 10px;
+                right: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                min-height: auto;
+                padding: 40px 20px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero .names {
+                font-size: 24px;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            section {
+                padding: 40px 15px;
+            }
+
+            section h2 {
+                font-size: 24px;
+                margin-bottom: 30px;
+            }
+
+            .radio-group {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script type="text/javascript">
+    (function() {
+        // Initializes EmailJS with the public key from index-19.html
+        emailjs.init({
+            publicKey: "MmXQuluJJvS260l9",
+        });
+    })();
+</script>
+</head>
+<body>
+    <!-- Language Toggle -->
+    <div class="language-toggle">
+        <button class="lang-btn active" onclick="switchLanguage('pl')">PL</button>
+        <button class="lang-btn" onclick="switchLanguage('en')">EN</button>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#home" class="nav-link" data-pl="Strona główna" data-en="Home">Strona główna</a></li>
+            <li><a href="#schedule" class="nav-link" data-pl="O wydarzeniu" data-en="About">O wydarzeniu</a></li>
+            <li><a href="#rsvp" class="nav-link" data-pl="RSVP" data-en="RSVP">RSVP</a></li>
+            <li><a href="#stay" class="nav-link" data-pl="Noclegi" data-en="Where to Stay">Noclegi</a></li>
+            <li><a href="#activities" class="nav-link" data-pl="Ciekawe miejsca" data-en="Things to Do">Ciekawe miejsca</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <h1 data-pl="ŚLUBIMY SIĘ" data-en="WE'RE GETTING MARRIED">ŚLUBIMY SIĘ</h1>
+        <div class="names" data-pl="Marta & Jakub" data-en="Marta & Jakub">Marta &amp; Jakub</div>
+        <p class="date-location">
+            <span data-pl="08 sierpnia 2026" data-en="August 08, 2026">08 sierpnia 2026</span>
+        </p>
+        <p class="location-detail" data-pl="Gdansk, Pomorskie" data-en="Gdansk, Pomeranian">Gdańsk, Pomorskie</p>
+        <div style="margin-top: 40px;">
+            <p data-pl="Dołącz do nas w tym wyjątkowym dniu!" data-en="Join us on this special day!">Dołącz do nas w tym wyjątkowym dniu!</p>
+        </div>
+        <div class="scroll-indicator">↓</div>
+    </section>
+
+    <!-- Schedule Section -->
+    <section id="schedule">
+        <h2 data-pl="O wydarzeniu" data-en="About the event">O wydarzeniu</h2>
+        <div class="schedule">
+
+            <div class="event-card">
+                <h3 data-pl="Sobota, 08 sierpnia" data-en="Saturday, August 08">Sobota, 08 sierpnia</h3>
+                <div class="event-time" data-pl="Ceremonia | 14:00" data-en="Ceremony | 2:00 PM">Ceremonia | 14:00</div>
+                <div class="event-location" data-pl="Miejsce ślubu" data-en="Miejsce ślubu">Miejsce ślubu</div>
+                <div class="event-address" data-pl="Kościół św. Jakuba" data-en="St. James Church">Kościół św. Jakuba</div>
+				<div class="event-address" data-pl="Oliwa, Gdańsk" data-en="Oliwa, Gdansk">Oliwa, Gdańsk</div>
+                <hr style="margin: 20px 0; border: none; border-top: 1px solid #eee;">
+                <div class="event-time" data-pl="Wesele | 16:00" data-en="Reception | 16:00 PM">Wesele | 16:00</div>
+                <div class="event-location" data-pl="Restauracja Tabun" data-en="Tabun Restaurant">Restauracja Tabun</div>
+                <div class="event-address" data-pl="ul. Konna 29, Otomin, Gdańsk" data-en="29, Konna Street, Otomin, Gdansk">ul. Konna 29, Otomin, Gdańsk</div>
+            </div>
+			
+			<div class="event-card">
+                <h3 data-pl="Dress code" data-en="Dress code">Dress Code</h3>
+				<div class="event-time" data-pl="Strój wizytowy" data-en="Formal Attire">Strój wizytowy</div>
+				<div class="event-location" data-pl="Uprzejmie prosimy o strój wizytowy." data-en="We kindly request formal attire.">Uprzejmie prosimy o strój wizytowy.</div>
+				<div class="event-location" data-pl="Panie: suknia koktajlowa lub wieczorowa" data-en="Ladies: cocktail dress or gown">Panie: suknia koktajlowa lub wieczorowa</div>
+				<div class="event-location" data-pl="Panowie: garnitur lub smoking" data-en="Gentlemen: suit or tuxedo">Panowie: garnitur lub smoking</div>
+          </div>
+
+        </div>
+    </section>
+
+    <!-- RSVP Section -->
+    <section id="rsvp">
+        <h2 data-pl="RSVP" data-en="RSVP">RSVP</h2>
+		<h2 data-pl="Prosimy o odpowiedź do 30 maja 2026." data-en="Please respond by May 30th, 2026">Prosimy o odpowiedź do 30 maja 2026.</h2>
+        <div class="rsvp-section">
+            <form id="rsvpForm" onsubmit="handleRSVPSubmit(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName" data-pl="Imię" data-en="First Name">Imię</label>
+                        <input type="text" id="firstName" name="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName" data-pl="Nazwisko" data-en="Last Name">Nazwisko</label>
+                        <input type="text" id="lastName" name="lastName" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email" data-pl="Email" data-en="Email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label data-pl="Czy będziesz uczestniczyć?" data-en="Will you be attending?">Czy będziesz uczestniczyć?</label>
+                    <div class="radio-group">
+                        <label>
+                            <input type="radio" name="attendance" value="yes" required>
+                            <span data-pl="Tak" data-en="Yes">Tak</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="attendance" value="no" required>
+                            <span data-pl="Nie" data-en="No">Nie</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="dietary" data-pl="Ograniczenia dietetyczne (opcjonalnie)" data-en="Dietary Restrictions (optional)">Ograniczenia dietetyczne (opcjonalnie)</label>
+                    <textarea id="dietary" name="dietary" placeholder="np. wegetariańskie, alergiczne na..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="message" data-pl="Wiadomość dla Pary Młodej" data-en="Message for the Couple">Wiadomość dla Pary Młodej</label>
+                    <textarea id="message" name="message" placeholder="Podziel się swoimi życzeniami..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn" data-pl="Wyślij RSVP" data-en="Submit RSVP">Wyślij RSVP</button>
+            </form>
+            <div id="formMessage" style="margin-top: 20px; text-align: center; color: var(--color-accent); display: none;"></div>
+        </div>
+    </section>
+
+    <!-- Accommodations Section -->
+    <section id="stay">
+        <h2 data-pl="Gdzie się zatrzymać" data-en="Where to Stay">Gdzie się zatrzymać</h2>
+        <p style="text-align: center; margin-bottom: 40px; color: #666;" data-pl="Drodzy Goście! Z uwagi na ograniczoną liczbę miejsc noclegowych w naszej sali, nie wszystkie zaproszenia zawierają zapewnienie noclegu. Jeżeli Twoje zaproszenie nie obejmuje tej opcji, przygotowaliśmy listę polecanych hoteli zlokalizowanych w pobliżu miejsca wesela, które ułatwią Wam rezerwację indywidualną." data-en="Dear Guests! Due to limited accommodation capacity at our venue, not all invitations include a stay. If your invitation does not include this option, we have prepared a list of recommended hotels situated near the wedding venue to assist you with your individual booking.">Drodzy Goście! Z uwagi na ograniczoną liczbę miejsc noclegowych w naszej sali, nie wszystkie zaproszenia zawierają zapewnienie noclegu. Jeżeli Twoje zaproszenie nie obejmuje tej opcji, przygotowaliśmy listę polecanych hoteli zlokalizowanych w pobliżu miejsca wesela, które ułatwią Wam rezerwację indywidualną.</p>
+        <div class="accommodations-grid">
+            <div class="hotel-card">
+                <h3>Hotel 1</h3>
+                <p>Adres do uzupełnienia</p>
+                <p>★★★★★ | Średnia cena</p>
+                <a href="#" class="hotel-link" data-pl="Strona internetowa" data-en="Website">Strona internetowa</a>
+            </div>
+
+            <div class="hotel-card">
+                <h3>Hotel 2</h3>
+                <p>Adres do uzupełnienia</p>
+                <p>★★★★ | Umiarkowana cena</p>
+                <a href="#" class="hotel-link" data-pl="Strona internetowa" data-en="Website">Strona internetowa</a>
+            </div>
+
+            <div class="hotel-card">
+                <h3>Hotel 3</h3>
+                <p>Adres do uzupełnienia</p>
+                <p>★★★ | Budżetowa opcja</p>
+                <a href="#" class="hotel-link" data-pl="Strona internetowa" data-en="Website">Strona internetowa</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Things to Do Section -->
+    <section id="activities">
+        <h2 data-pl="Ciekawe miejsca w mieście" data-en="Things to Do">Ciekawe miejsca w mieście</h2>
+        <p style="text-align: center; margin-bottom: 40px; color: #666;" data-pl="Dla naszych gości podróżujących z daleka - oto nasze ulubione miejsca do jedzenia, picia i odkrywania miasta. Chcemy, abyście czuli się jak lokalni!" data-en="For our out-of-town guests - here are our favorite spots to eat, drink, and explore. We want you to feel like locals!">Dla naszych gości podróżujących z daleka - oto nasze ulubione miejsca do jedzenia, picia i odkrywania miasta. Chcemy, abyście czuli się jak lokalni!</p>
+        <div class="activities-grid">
+            <div class="activity-card">
+                <h3 data-pl="Restauracja" data-en="Restaurant">Restauracja</h3>
+                <p data-pl="Doskonała dla obiadów i kolacji. Polecamy rybę i dania mięsne." data-en="Perfect for lunch and dinner. We recommend the fish and meat dishes.">Doskonała dla obiadów i kolacji. Polecamy rybę i dania mięsne.</p>
+            </div>
+
+            <div class="activity-card">
+                <h3 data-pl="Kawiarnia" data-en="Cafe">Kawiarnia</h3>
+                <p data-pl="Idealna na poranną kawę i desery. Przytulna atmosfera!" data-en="Perfect for morning coffee and desserts. Cozy atmosphere!">Idealna na poranną kawę i desery. Przytulna atmosfera!</p>
+            </div>
+
+            <div class="activity-card">
+                <h3 data-pl="Muzeum" data-en="Museum">Muzeum</h3>
+                <p data-pl="Ciekawe wystawy i bogate kolekcje sztuki. Warte odwiedzenia!" data-en="Interesting exhibits and rich art collections. Worth a visit!">Ciekawe wystawy i bogate kolekcje sztuki. Warte odwiedzenia!</p>
+            </div>
+
+            <div class="activity-card">
+                <h3 data-pl="Park" data-en="Park">Park</h3>
+                <p data-pl="Piękne tereny zielone idealne do spacerów. Wspaniałe widoki!" data-en="Beautiful green spaces perfect for walks. Wonderful views!">Piękne tereny zielone idealne do spacerów. Wspaniałe widoki!</p>
+            </div>
+
+            <div class="activity-card">
+                <h3 data-pl="Bar koktajlowy" data-en="Cocktail Bar">Bar koktajlowy</h3>
+                <p data-pl="Doskonałe koktajle i gościnne towarzystwo. Najlepsze w mieście!" data-en="Excellent cocktails and welcoming crowd. Best in town!">Doskonałe koktajle i gościnne towarzystwo. Najlepsze w mieście!</p>
+            </div>
+
+            <div class="activity-card">
+                <h3 data-pl="Galeria sztuki" data-en="Art Gallery">Galeria sztuki</h3>
+                <p data-pl="Współczesna sztuka i artyści lokalni. Inspirujące miejsce!" data-en="Contemporary art and local artists. Inspiring place!">Współczesna sztuka i artyści lokalni. Inspirujące miejsce!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p><span data-pl="Z całego serca" data-en="With all our hearts">Z całego serca</span> <span class="heart">❤</span></p>
+        <p data-pl="Imię & Imię" data-en="Name & Name">Marta &amp; Jakub</p>
+        <p style="margin-top: 20px; font-size: 12px; opacity: 0.8;" data-pl="Dziękujemy za celebrowanie tego dnia z nami!" data-en="Thank you for sharing this day with us!">Dziękujemy za celebrowanie tego dnia z nami!</p>
+    </footer>
+
+    <script>
+    let currentLanguage = 'pl';
+
+    function switchLanguage(lang) {
+        currentLanguage = lang;
+
+        // Update language buttons
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        event.target.classList.add('active');
+
+        // Update all elements with data attributes
+        document.querySelectorAll('[data-pl][data-en]').forEach(element => {
+            if (lang === 'pl') {
+                element.textContent = element.getAttribute('data-pl');
+            } else {
+                element.textContent = element.getAttribute('data-en');
+            }
+        });
+
+        // Update form placeholders
+        const dietaryInput = document.getElementById('dietary');
+        const messageInput = document.getElementById('message');
+        if (lang === 'pl') {
+            dietaryInput.placeholder = 'np. wegetariańskie, alergiczne na...';
+            messageInput.placeholder = 'Podziel się swoimi życzeniami...';
+        } else {
+            dietaryInput.placeholder = 'e.g., vegetarian, allergic to...';
+            messageInput.placeholder = 'Share your wishes...';
+        }
+
+        // Update radio labels
+        document.querySelectorAll('.radio-group label span').forEach((label, index) => {
+            if (index === 0) {
+                label.textContent = lang === 'pl' ? 'Tak' : 'Yes';
+            } else if (index === 1) {
+                label.textContent = lang === 'pl' ? 'Nie' : 'No';
+            }
+        });
+    }
+
+    function handleRSVPSubmit(event) {
+        event.preventDefault();
+
+        const submitBtn = event.target.querySelector('.submit-btn');
+        const originalBtnText = submitBtn.textContent;
+        
+        // Change button text to indicate loading
+        submitBtn.textContent = currentLanguage === 'pl' ? 'Wysyłanie...' : 'Sending...';
+        submitBtn.disabled = true;
+
+        // Get form values
+        const firstName = document.getElementById('firstName').value;
+        const lastName = document.getElementById('lastName').value;
+        const email = document.getElementById('email').value;
+        const attendance = document.querySelector('input[name="attendance"]:checked').value;
+        const dietary = document.getElementById('dietary').value;
+        const message = document.getElementById('message').value;
+
+        // Prepare data object matching the index-19.html template requirements
+        const formData = {
+            guestname: firstName + ' ' + lastName, // Combined to match original 'guestName'
+            email: email,
+            attending: attendance === 'yes' ? 'TAK' : 'NIE', // Mapped to original Polish values
+            attending1: '', // Your form doesn't have a +1 field, sending empty
+            dietary: dietary || (currentLanguage === 'pl' ? 'Brak' : 'None'),
+            message: message || (currentLanguage === 'pl' ? 'Brak wiadomości' : 'No message'),
+            language: currentLanguage === 'pl' ? 'Polish' : 'English'
+        };
+
+        // Send email using the credentials from index-19.html
+        emailjs.send('080826', 'template_nzzzhuy', formData)
+            .then(function(response) {
+                console.log('SUCCESS!', response.status, response.text);
+                
+                // Show success message
+                const messageDiv = document.getElementById('formMessage');
+                const successMsg = currentLanguage === 'pl' 
+                    ? 'Dziękujemy! Twoja odpowiedź RSVP została przyjęta.' 
+                    : 'Thank you! Your RSVP has been received.';
+                
+                messageDiv.textContent = successMsg;
+                messageDiv.style.color = 'var(--color-primary)';
+                messageDiv.style.display = 'block';
+
+                // Reset form
+                document.getElementById('rsvpForm').reset();
+            }, function(error) {
+                console.log('FAILED...', error);
+                
+                // Show error message
+                const messageDiv = document.getElementById('formMessage');
+                messageDiv.textContent = currentLanguage === 'pl' 
+                    ? 'Wystąpił błąd. Spróbuj ponownie później.' 
+                    : 'An error occurred. Please try again later.';
+                messageDiv.style.color = 'red';
+                messageDiv.style.display = 'block';
+            })
+            .finally(() => {
+                // Restore button state
+                submitBtn.textContent = originalBtnText;
+                submitBtn.disabled = false;
+
+                // Hide message after 5 seconds
+                setTimeout(() => {
+                    document.getElementById('formMessage').style.display = 'none';
+                }, 5000);
+            });
+    }
+</script>
+
+</body>
+</html>
